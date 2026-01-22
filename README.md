@@ -7,6 +7,36 @@ A terminal-based interface for managing tmux sessions with interactive navigatio
 - tmux
 - bash
 
+## Installing tmux
+
+**Debian/Ubuntu:**
+```bash
+sudo apt install tmux
+```
+
+**Fedora/RHEL/CentOS:**
+```bash
+sudo dnf install tmux
+```
+
+**macOS (Homebrew):**
+```bash
+brew install tmux
+```
+
+## Changing the Prefix Key
+
+The default tmux prefix key is `Ctrl-b`, which conflicts with some software (e.g., Emacs, readline backward-char). To change it to `Ctrl-a`, create or edit `~/.tmux.conf`:
+
+```bash
+# Change prefix from Ctrl-b to Ctrl-a
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix
+```
+
+Reload the config in an active session with `Ctrl-b :source-file ~/.tmux.conf` (or restart tmux).
+
 ## Usage
 
 ```bash
