@@ -14,6 +14,19 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
+# Run tmux with the running server's own binary. After a package upgrade the
+# server keeps running the old (deleted) binary, and a newer client can't
+# attach to it ("open terminal failed: not a terminal").
+tmux() {
+    local pid
+    pid=$(command tmux display-message -p '#{pid}' 2>/dev/null) || true
+    if [ -n "$pid" ] && [ -x "/proc/$pid/exe" ]; then
+        "/proc/$pid/exe" "$@"
+    else
+        command tmux "$@"
+    fi
+}
+
 # Clear screen and show header
 show_header() {
     clear
